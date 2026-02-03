@@ -4,6 +4,7 @@
  */
 
 import { Graph, graphSchema } from "@/components/tambo/graph";
+import { QuizPanel, quizPanelSchema } from "@/components/tambo/quiz-panel";
 import { SmartTable, smartTableSchema } from "@/components/tambo/smart-table";
 import { DataCard, dataCardSchema } from "@/components/ui/card-data";
 import type { TamboComponent } from "@tambo-ai/react";
@@ -40,5 +41,11 @@ export const components: TamboComponent[] = [
     description: "Renders a data table. Use this for lists, log analysis, error reports, pricing grids, or comparison data.",
     component: SmartTable,
     propsSchema: smartTableSchema,
+  },
+  {
+    name: "QuizPanel",
+    description: "Renders an interactive quiz with multiple choice questions. Use this when the user wants to study, practice, test their knowledge, or cram for an exam.",
+    component: QuizPanel,
+    propsSchema: quizPanelSchema,
   },
 ];
