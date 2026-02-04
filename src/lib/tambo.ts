@@ -4,6 +4,7 @@
  */
 
 import { Graph, graphSchema } from "@/components/tambo/graph";
+import { ProposalCard, proposalCardSchema } from "@/components/tambo/proposal-card";
 import { QuizPanel, quizPanelSchema } from "@/components/tambo/quiz-panel";
 import { SmartTable, smartTableSchema } from "@/components/tambo/smart-table";
 import { DataCard, dataCardSchema } from "@/components/ui/card-data";
@@ -47,5 +48,11 @@ export const components: TamboComponent[] = [
     description: "Renders an interactive quiz with multiple choice questions. Use this when the user wants to study, practice, test their knowledge, or cram for an exam.",
     component: QuizPanel,
     propsSchema: quizPanelSchema,
+  },
+  {
+    name: "ProposalCard",
+    description: "Renders a professional project proposal or contract lite. Use this when the user mentions budgets, quotes, proposals, freelance work, or agreements.",
+    component: ProposalCard,
+    propsSchema: proposalCardSchema,
   },
 ];
