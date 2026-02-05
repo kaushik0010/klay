@@ -4,6 +4,7 @@
  */
 
 import { Graph, graphSchema } from "@/components/tambo/graph";
+import { MediaKit, mediaKitSchema } from "@/components/tambo/media-kit";
 import { ProposalCard, proposalCardSchema } from "@/components/tambo/proposal-card";
 import { QuizPanel, quizPanelSchema } from "@/components/tambo/quiz-panel";
 import { SmartTable, smartTableSchema } from "@/components/tambo/smart-table";
@@ -54,5 +55,11 @@ export const components: TamboComponent[] = [
     description: "Renders a professional project proposal or contract lite. Use this when the user mentions budgets, quotes, proposals, freelance work, or agreements.",
     component: ProposalCard,
     propsSchema: proposalCardSchema,
+  },
+  {
+    name: "MediaKit",
+    description: "Renders a creator media kit with stats and a growth chart. Use this when the user wants to showcase their social media performance, follower growth, or influencer stats.",
+    component: MediaKit,
+    propsSchema: mediaKitSchema,
   },
 ];
