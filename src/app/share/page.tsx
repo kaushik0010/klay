@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { decodeData } from "@/lib/share-utils";
 import { ProposalCard } from "@/components/tambo/proposal-card";
 import { MediaKit } from "@/components/tambo/media-kit";
@@ -9,7 +9,8 @@ import { QuizPanel } from "@/components/tambo/quiz-panel";
 import { Sparkles, Loader2 } from "lucide-react";
 import Link from "next/link";
 
-export default function SharePage() {
+// 1. We extract the logic into a separate component
+function ShareContent() {
   const searchParams = useSearchParams();
   const [decodedState, setDecodedState] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ export default function SharePage() {
 
   if (!decodedState) {
     return (
-      <div className="flex h-screen flex-col items-center justify-center gap-4 text-center">
+      <div className="flex h-screen flex-col items-center justify-center gap-4 text-center p-4">
         <h1 className="text-2xl font-bold">Invalid Link</h1>
         <p className="text-muted-foreground">This content does not exist or the link is broken.</p>
         <Link href="/" className="text-primary hover:underline">Go Home</Link>
@@ -68,5 +69,18 @@ export default function SharePage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+// 2. The Main Page Component wraps it in Suspense
+export default function SharePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-muted/10">
+        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+      </div>
+    }>
+      <ShareContent />
+    </Suspense>
   );
 }
