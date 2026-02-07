@@ -6,8 +6,9 @@ import confetti from "canvas-confetti";
 import { Check, FileSignature, Calendar, DollarSign, Briefcase } from "lucide-react";
 import * as React from "react";
 import { z } from "zod";
+import { ShareButton } from "@/components/share-button"; // <--- IMPORT ADDED
 
-// 1. The Zod Schema (What the AI fills in)
+// 1. The Zod Schema
 export const proposalCardSchema = z.object({
   title: z.string().describe("The project name (e.g. 'E-commerce Website Redesign')"),
   clientName: z.string().optional().describe("Name of the client or company"),
@@ -28,7 +29,7 @@ type ProposalState = {
 export const ProposalCard = React.forwardRef<HTMLDivElement, ProposalCardProps>(
   ({ title, clientName, budget, dueDate, deliverables, className, ...props }, ref) => {
     
-    // Persistent State: Remembers if the user clicked "Accept"
+    // Persistent State
     const [state, setState] = useTamboComponentState<ProposalState>(
       `proposal-${title.replace(/\s/g, '-')}`, 
       { status: "pending", signedAt: null }
@@ -38,13 +39,12 @@ export const ProposalCard = React.forwardRef<HTMLDivElement, ProposalCardProps>(
     if (!state) return null;
 
     const handleAccept = () => {
-        // 1. Update State
         setState({
             status: "accepted",
             signedAt: new Date().toLocaleDateString(),
         });
 
-        // 2. Fire Confetti
+        // Fire Confetti
         const duration = 3 * 1000;
         const animationEnd = Date.now() + duration;
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -55,14 +55,8 @@ export const ProposalCard = React.forwardRef<HTMLDivElement, ProposalCardProps>(
 
         const interval: any = setInterval(function() {
             const timeLeft = animationEnd - Date.now();
-
-            if (timeLeft <= 0) {
-            return clearInterval(interval);
-            }
-
+            if (timeLeft <= 0) return clearInterval(interval);
             const particleCount = 50 * (timeLeft / duration);
-
-            // Since particles fall down, start a bit higher than random
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
         }, 250);
@@ -121,8 +115,8 @@ export const ProposalCard = React.forwardRef<HTMLDivElement, ProposalCardProps>(
             </div>
           )}
 
-          {/* Action Area */}
-          <div className="pt-2">
+          {/* Action Area & Share */}
+          <div className="pt-2 flex flex-col gap-3">
             {isAccepted ? (
               <div className="border-2 border-dashed border-green-500/30 bg-green-50/30 dark:bg-green-900/10 rounded-lg p-4 flex flex-col items-center justify-center text-center animate-in zoom-in-95 duration-300">
                 <div className="flex items-center gap-2 text-green-600 font-bold text-lg">
@@ -136,15 +130,22 @@ export const ProposalCard = React.forwardRef<HTMLDivElement, ProposalCardProps>(
             ) : (
               <button
                 onClick={handleAccept}
-                className="group relative w-full flex items-center justify-center gap-2 bg-foreground text-background hover:bg-foreground/90 font-medium py-3 rounded-lg transition-all active:scale-[0.98]"
+                className="group relative w-full flex items-center justify-center gap-2 bg-foreground text-background hover:bg-foreground/90 font-medium py-3 rounded-lg transition-all active:scale-[0.98] cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Accept Proposal <DollarSign className="w-4 h-4" />
                 </span>
-                {/* Subtle sheen effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               </button>
             )}
+
+            {/* SHARE BUTTON ADDED HERE */}
+            <div className="flex justify-center">
+                <ShareButton 
+                    type="ProposalCard" 
+                    data={{ title, clientName, budget, dueDate, deliverables }} 
+                />
+            </div>
           </div>
         </div>
       </div>

@@ -21,11 +21,12 @@ import {
   YAxis 
 } from "recharts";
 import { z } from "zod";
+import { ShareButton } from "@/components/share-button"; // <--- IMPORT ADDED
 
 // 1. Zod Schema
 export const mediaKitSchema = z.object({
   name: z.string().describe("Creator's full name"),
-  handle: z.string().describe("Social media handle (e.g. @kaushik_dev)"),
+  handle: z.string().describe("Social media handle (e.g. @kaushikp010)"),
   bio: z.string().describe("Short punchy bio describing the niche"),
   platform: z.enum(["Instagram", "YouTube", "Twitter", "LinkedIn"]).describe("Primary platform"),
   stats: z.object({
@@ -133,12 +134,23 @@ export const MediaKit = React.forwardRef<HTMLDivElement, MediaKitProps>(
           </div>
         </div>
 
-        {/* Footer CTA */}
+        {/* Footer CTA & Share */}
         <div className="p-4 bg-muted/20 border-t flex justify-between items-center">
-          <span className="text-xs text-muted-foreground">Available for sponsorships</span>
-          <button className="flex items-center gap-2 bg-foreground text-background px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
-            <Mail className="w-4 h-4" /> Contact Me
-          </button>
+            <div className="flex items-center gap-3">
+                 <span className="text-xs text-muted-foreground hidden sm:inline">Available for sponsorships</span>
+                 {/* SHARE BUTTON ADDED HERE */}
+                 <ShareButton 
+                    type="MediaKit" 
+                    data={{ name, handle, bio, platform, stats, growthData }} 
+                 />
+            </div>
+
+            <a 
+                href={`mailto:contact@${handle.replace('@', '')}.com`}
+                className="flex items-center gap-2 bg-foreground text-background px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+                <Mail className="w-4 h-4" /> Contact Me
+            </a>
         </div>
       </div>
     );

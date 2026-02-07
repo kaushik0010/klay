@@ -1,20 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google";
+// app/layout.tsx - Updated with new color scheme
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Klay",
-  description: "The Human-in-the-Loop SOC Platform using Oumi, Groq, and Kestra.",
+  title: "Klay | Generative UI Platform",
+  description: "The interface that shapeshifts to your intent. Describe the tool you need. Klay builds the UI instantly.",
 };
 
 export default function RootLayout({
@@ -23,10 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${inter.variable}`}>
+      <body className="antialiased bg-white text-gray-900 min-h-screen overflow-x-hidden">
         {children}
       </body>
     </html>
