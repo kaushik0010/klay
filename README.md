@@ -1,131 +1,110 @@
-# Tambo Template
+# Klay 🧱
 
-This is a starter NextJS app with Tambo hooked up to get your AI app development started quickly.
+![Klay Banner](https://capsule-render.vercel.app/api?type=waving&color=0:CA2851,100:FFB173&height=300&section=header&text=Klay&fontSize=90&animation=fadeIn&fontAlignY=40&desc=Generative%20UI%20for%20Solopreneurs&descAlign=62&descAlignY=70&fontColor=ffffff)
 
-## Get Started
+> **Submission for "The UI Strikes Back" Hackathon** > *Hosted by WeMakeDevs Platform*
 
-1. Run `npm create-tambo@latest my-tambo-app` for a new project
+![Tambo](https://img.shields.io/badge/Orchestration-Tambo-orange?style=flat&logo=react)
+![Gemini](https://img.shields.io/badge/AI-Gemini%202.5%20Flash-blue?style=flat&logo=google)
+![Next.js](https://img.shields.io/badge/Framework-Next.js-black?style=flat&logo=next.js)
+![Tailwind](https://img.shields.io/badge/Styling-TailwindCSS-38B2AC?style=flat&logo=tailwind-css)
 
-2. `npm install`
+## 💡 The Vision
 
-3. `npx tambo init`
+### The Problem: "Admin Friction"
+Solopreneurs and Creators spend 80% of their time on "Admin UI"—building proposals, designing media kits, and creating engagement tools. The current workflow is fragmented: you switch to Figma for design, DocuSign for contracts, and Typeform for quizzes. It breaks the flow state.
 
-- or rename `example.env.local` to `.env.local` and add your tambo API key you can get for free [here](https://tambo.co/dashboard).
+### The Solution: Klay
+**Klay** is a "Generative UI" engine. Instead of chatting with text, you chat with *Interface*.
+* Need a contract? Klay renders a **Proposal Card** you can sign interactively.
+* Need a sponsor pitch? Klay renders a live **Media Kit** with real data visualization.
+* Need to share it? Klay compresses the state into a URL for instant sharing.
 
-4. Run `npm run dev` and go to `localhost:3000` to use the app!
+---
 
-## Customizing
+## 🚀 Key Features (Live)
 
-### Change what components tambo can control
+### 1. The "Deal Closer" (Proposal Engine)
+Input a budget and deliverables, and Klay generates a professional contract UI. It features an interactive "Accept" state with a confetti celebration to dopamine-hack the closing process.
 
-You can see how components are registered with tambo in `src/lib/tambo.ts`:
+### 2. The "Authority Builder" (Media Kit)
+Creators can input raw stats, and Klay uses `Recharts` to render a beautiful, interactive growth chart and profile header instantly. No PDFs required.
 
-```tsx
-export const components: TamboComponent[] = [
-  {
-    name: "Graph",
-    description:
-      "A component that renders various types of charts (bar, line, pie) using Recharts. Supports customizable data visualization with labels, datasets, and styling options.",
-    component: Graph,
-    propsSchema: graphSchema,
-  },
-  // Add more components here
-];
-```
+### 3. The "Engagement" (Quiz Panel)
+Klay can generate interactive quizzes for education or community engagement, complete with scoring logic and state management.
 
-You can install the graph component into any project with:
+### 4. Stateless Sharing Engine (The "Anti-Local" Feature)
+We solved the "Localhost Curse." Klay compresses the entire React component state into a Base64 string in the URL.
+* **User Action:** Click "Share".
+* **Result:** A unique link (`klay.app/share?s=...`) that renders the exact component for anyone, anywhere. No database required.
 
-```bash
-npx tambo add graph
-```
+---
 
-The example Graph component demonstrates several key features:
+## 🛠️ Tech Stack
 
-- Different prop types (strings, arrays, enums, nested objects)
-- Multiple chart types (bar, line, pie)
-- Customizable styling (variants, sizes)
-- Optional configurations (title, legend, colors)
-- Data visualization capabilities
+* **Orchestration:** [Tambo SDK](https://tambo.co/)
+* **Intelligence:** Google Gemini 2.5 Flash
+* **Framework:** Next.js 14 (App Router)
+* **Styling:** TailwindCSS + Shadcn/UI
+* **Visualization:** Recharts
 
-Update the `components` array with any component(s) you want tambo to be able to use in a response!
+---
 
-You can find more information about the options [here](https://docs.tambo.co/concepts/generative-interfaces/generative-components)
+## 🗺️ Future Roadmap
 
-### Add tools for tambo to use
+We have validated the interface (Phase 1). Post-hackathon, we are moving to **Phase 2: Retention & Speed**.
 
-Tools are defined with `inputSchema` and `outputSchema`:
+- **1. "Memory" (The Database Layer)**
+    * **The Problem:** Klay currently has "amnesia." If you refresh, context is lost.
+    * **The Fix:** We will integrate **PostgreSQL** to create a User Dashboard.
+    * **The Vision:** Users will be able to query past work: *"Show me all proposals sent last month"* or *"Compare my follower growth to last week."*
 
-```tsx
-export const tools: TamboTool[] = [
-  {
-    name: "globalPopulation",
-    description:
-      "A tool to get global population trends with optional year range filtering",
-    tool: getGlobalPopulationTrend,
-    inputSchema: z.object({
-      startYear: z.number().optional(),
-      endYear: z.number().optional(),
-    }),
-    outputSchema: z.array(
-      z.object({
-        year: z.number(),
-        population: z.number(),
-        growthRate: z.number(),
-      }),
-    ),
-  },
-];
-```
+- **2. "Remixing" (Slash Commands)**
+    * **The Problem:** Writing full prompts every time is slow.
+    * **The Fix:** We will allow users to save **Slash Command Templates**.
+        * User types `/invoice` → Auto-fills their standard rate ($100/hr) and terms.
+        * User types `/update` → Auto-fetches latest YouTube stats for the Media Kit.
+    * **The Vision:** This creates a workflow speed that beats traditional tools like Microsoft Word or Excel.
+---
 
-Find more information about tools [here.](https://docs.tambo.co/concepts/tools)
+## ⚡ Getting Started
 
-### The Magic of Tambo Requires the TamboProvider
+### Prerequisites
+* Node.js (v18+)
+* npm / pnpm / yarn
 
-Make sure in the TamboProvider wrapped around your app:
+### Installation
 
-```tsx
-...
-<TamboProvider
-  apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
-  components={components} // Array of components to control
-  tools={tools} // Array of tools it can use
->
-  {children}
-</TamboProvider>
-```
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/kaushik0010/klay.git
+    cd klay
+    ```
 
-In this example we do this in the `Layout.tsx` file, but you can do it anywhere in your app that is a client component.
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
 
-### Voice input
+3.  **Environment Setup**
+    Create a `.env.local` file in the root directory.
+    
+    ```bash
+    cp .env.example .env.local
+    ```
 
-The template includes a `DictationButton` component using the `useTamboVoice` hook for speech-to-text input.
+    Add your Tambo API Key:
+    ```env
+    NEXT_PUBLIC_TAMBO_API_KEY=your_tambo_key_here
+    ```
 
-### MCP (Model Context Protocol)
+4.  **Run the application**
+    ```bash
+    npm run dev
+    ```
 
-The template includes MCP support for connecting to external tools and resources. You can use the MCP hooks from `@tambo-ai/react/mcp`:
+---
 
-- `useTamboMcpPromptList` - List available prompts from MCP servers
-- `useTamboMcpPrompt` - Get a specific prompt
-- `useTamboMcpResourceList` - List available resources
+## 🤝 Contributing
 
-See `src/components/tambo/mcp-components.tsx` for example usage.
-
-### Change where component responses are shown
-
-The components used by tambo are shown alongside the message response from tambo within the chat thread, but you can have the result components show wherever you like by accessing the latest thread message's `renderedComponent` field:
-
-```tsx
-const { thread } = useTambo();
-const latestComponent =
-  thread?.messages[thread.messages.length - 1]?.renderedComponent;
-
-return (
-  <div>
-    {latestComponent && (
-      <div className="my-custom-wrapper">{latestComponent}</div>
-    )}
-  </div>
-);
-```
-
-For more detailed documentation, visit [Tambo's official docs](https://docs.tambo.co).
+This project was built for **The UI Strikes Back** Hackathon. We are open to PRs that align with the roadmap above!
